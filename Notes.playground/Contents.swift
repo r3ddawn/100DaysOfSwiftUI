@@ -506,7 +506,7 @@ print(multiples)
 
 
 
-
+/*
 //Functions
 func printTimesTables(number: Int, end: Int) {
     for i in 1...end {
@@ -605,3 +605,104 @@ do {
 } catch {
     print("There was an error")
 }
+*/
+
+
+
+
+// Closures
+func greetUser() {
+    print("Hi there!")
+}
+
+greetUser()
+// var greetCopy = greetUser
+var greetCopy: () -> Void = greetUser       // No () -  If you put the (), it means run function and put ita value in the variable. Without (), it means copy the function directly. Give me another handle for the function.
+greetCopy()
+
+let sayHello = {
+    print("Hello World!")
+}
+
+sayHello()
+
+let sayHelloWorld = { (name: String) -> String in   //"in" keyword marks end of parameters and start of closure function
+    "Hello \(name)"
+}
+
+print(sayHelloWorld("World"))
+
+
+let team = ["Gloria","Karissa", "Kaylee", "Avery", "Rae", "Susi", "Piper", "Tiffany", "Tasha"]
+let sortedTeam = team.sorted()
+print(sortedTeam)
+
+func captainFirstSorted(name1: String, name2: String) -> Bool {
+    if name1 == "Susi" {
+        return true
+    } else if name2 == "Susi" {
+        return false
+    }
+    return name1 < name2
+}
+
+//let captainFirstTeam = team.sorted(by: captainFirstSorted)
+//print(captainFirstTeam)
+
+let captainFirstTeam = team.sorted(by: { (name1: String, name2: String) -> Bool in
+    if name1 == "Susi" {
+        return true
+    } else if name2 == "Susi" {
+        return false
+    }
+    return name1 < name2
+})
+print(captainFirstTeam)
+
+//minimizing syntax
+let captainFirstTeamModified = team.sorted {
+    if $0 == "Susi" {
+        return true
+    } else if $1 == "Susi" {
+        return false
+    }
+    return $0 < $1
+}
+
+let reverseTeam = team.sorted { $0 > $1 }
+
+let tOnly = team.filter {$0.hasPrefix("T")}
+print(tOnly)
+
+let uppercaseTeam = team.map { $0.uppercased() }
+print(uppercaseTeam
+)
+
+func makeArray(size: Int, using generator: () -> Int) -> [Int] {
+    var numbers = [Int]()
+
+    for _ in 0..<size {
+        let newNumber = generator()
+        numbers.append(newNumber)
+    }
+
+    return numbers
+}
+
+func doImportantWork(first: () -> Void, second: () -> Void, third: () -> Void) {
+    print("About to start first work")
+    first()
+    print("About to start second work")
+    second()
+    print("About to start third work")
+    third()
+}
+
+doImportantWork {
+    print("This is the first work")
+} second: {
+    print("This is the second work")
+} third: {
+    print("This is the third work")
+}
+ 
