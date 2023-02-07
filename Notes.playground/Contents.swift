@@ -709,7 +709,7 @@ doImportantWork {
 
 
 
-
+/*
 // Structs
 struct Album {
     let title: String
@@ -826,3 +826,101 @@ struct Player {
 
 let player = Player(name: "Megan R")
 print(player)
+*/
+
+
+
+
+// Access Control and Static properties/methods
+
+struct BankAccount {
+    private(set) var funds = 0
+    
+    mutating func deposite(amount: Int) {
+        funds += amount
+    }
+    
+    mutating func withdraw(amount: Int) -> Bool {
+        if funds > amount {
+            funds -= amount
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+var account = BankAccount()
+account.deposite(amount: 100)
+let success = account.withdraw(amount: 200)
+
+if success {
+    print("Withdrew money successfully")
+} else {
+    print("Failed to get the money")
+}
+
+
+struct Doctor {
+    var name: String = ""
+    var location: String = ""
+    private var currentPatient = "No one"
+}
+let drJones = Doctor()
+
+struct Contributor {
+    private var name = "Anonymous"
+}
+let paul = Contributor()
+
+struct RebelBase {
+    private var location: String
+    private var peopleCount: Int
+    init(location: String, people: Int) {
+        self.location = location
+        self.peopleCount = people
+    }
+}
+let base = RebelBase(location: "Yavin", people: 1000)
+
+//Static propertied and methods
+struct School {
+    static var studentCount = 0
+    
+    static func add(student: String) {
+        print("\(student) joined the school")
+        studentCount += 1
+    }
+}
+
+School.add(student: "Taylor Swift")
+print(School.studentCount)
+
+
+struct AppData {
+    static let version = "1.3 beta 2"
+    static let saveFilename = "settings.json"
+    static let homeURL = "https://www.hackingwithswift.com"
+}
+print(AppData.version)
+
+struct Employee {
+    let username: String
+    let password: String
+
+    static let example = Employee(username: "cfederighi", password: "hairforceone")
+}
+
+struct NewsStory {
+    static var breakingNewsCount = 0
+    static var regularNewsCount = 0
+    var headline: String
+    init(headline: String, isBreaking: Bool) {
+        self.headline = headline
+        if isBreaking {
+            NewsStory.breakingNewsCount += 1
+        } else {
+            NewsStory.regularNewsCount += 1
+        }
+    }
+}
