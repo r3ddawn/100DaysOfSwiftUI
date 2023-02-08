@@ -830,7 +830,7 @@ print(player)
 
 
 
-
+/*
 // Access Control and Static properties/methods
 
 struct BankAccount {
@@ -923,4 +923,139 @@ struct NewsStory {
             NewsStory.regularNewsCount += 1
         }
     }
+}
+
+
+func existsHigher(numList: [Int], numToCheck: Int) -> Bool {
+    if numList.isEmpty { return false }
+    for num in numList {
+        if num > numToCheck {
+            return true
+        }
+    }
+    return false
+}
+
+var hello = "1002"
+var temp: Int
+for num in hello {
+    print(Int(String(num)) ?? 0)
+}
+
+func sumDigits(_ a: Int, _ b: Int) -> Int {
+    var sum: Int = 0
+    for x in a...b {
+        var temp = String(x)
+        for num in temp  {
+            sum += Int(String(num)) ?? 0
+        }
+    }
+    return sum
+}
+
+sumDigits(66, 789)
+
+func combinations(_ args: Int...) -> Int {
+    var numbers = [Int]()
+    var sum: Int
+    for num in args {
+        numbers.append(num)
+    }
+    sum = numbers[0]
+    for x in 1..<numbers.count {
+        sum *= numbers[x]
+    }
+    return sum
+}
+
+ 
+var hi = "Hello"
+let index = hi.index(hi.startIndex, offsetBy: 3)
+print(hi[index])
+ 
+*/
+
+
+
+//Classes
+class Game {
+    var score = 0 {
+        didSet {
+            print("Score is now \(score)")
+        }
+    }
+}
+
+var newGame = Game()
+newGame.score += 10
+
+
+class Employee {
+    let hours: Int
+
+    init(hours: Int) {
+        self.hours = hours
+    }
+    
+    func printSummary() {
+        print("I work \(hours) per day")
+    }
+}
+
+class Developer: Employee {
+    func work() {
+        print("I'm writing code for \(hours) hours.")
+    }
+    
+    override func printSummary() {
+        print("I'm a developer who will sometime work \(hours) per day, but I will sometimes spend hours arguing about indents")
+    }
+}
+
+class Manager: Employee {
+    func work() {
+        print("I'm going to meetings for \(hours) hours.")
+    }
+}
+
+let robert = Developer(hours: 8)
+let joseph = Manager(hours: 10)
+robert.work()
+joseph.work()
+robert.printSummary()
+joseph.printSummary()
+
+class Vehicle {
+    let isElectric: Bool
+
+    init(isElectric: Bool) {
+        self.isElectric = isElectric
+    }
+}
+
+class Car: Vehicle {
+    let isConvertible: Bool
+
+    init(isElectric: Bool, isConvertible: Bool) {
+        self.isConvertible = isConvertible
+        super.init(isElectric: isElectric)
+        
+    }
+}
+
+class User {
+    let id: Int
+
+    init(id: Int) {
+        self.id = id
+        print("User \(id): I'm alive!")
+    }
+
+    deinit {
+        print("User \(id): I'm dead!")
+    }
+}
+
+for x in 1...5 {
+    let user  = User(id: x)
 }
