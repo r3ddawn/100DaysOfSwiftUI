@@ -63,6 +63,7 @@ struct ContentView: View {
                 
                 Section {
                     Text(billTotal, format: .currency(code: currencyType))
+                        .foregroundColor(tipPercentage == 0 ? .red : .primary)
                 } header: {
                     Text("Bill Total with Tip")
                 }
