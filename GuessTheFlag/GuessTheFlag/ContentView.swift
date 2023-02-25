@@ -23,15 +23,19 @@ struct ContentView: View {
     @State private var scoreTitle = ""
     @State private var userScore = 0
     @State private var flagChoice = 0
-    @State private var enabled = false
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
-   
     
+    @State private var opacities = [1.0, 1.0, 1.0]
+    @State private var rotationAmount = [0.0, 0.0, 0.0]
+    @State private var scale = [1.0, 1.0, 1.0]
     
+       
     var body: some View {
-        ZStack {
+        print(countries)
+        
+        return ZStack {
             LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             VStack {
@@ -53,9 +57,15 @@ struct ContentView: View {
                     ForEach(0..<3) { number in
                         Button {
                             flaggedTapped(number)
-                            enabled.toggle()
+                            withAnimation {
+                                changeOpacityAndScale()
+                                rotationAmount[number] += 360
+                            }
                         } label: {
                             flagImage(name: countries[number])
+                                .opacity(self.opacities[number])
+                                .rotation3DEffect(.degrees(self.rotationAmount[number]), axis: (x: 0, y: 1, z: 0))
+                                .scaleEffect(self.scale[number])
                         }
                     }
                 }
@@ -94,13 +104,23 @@ struct ContentView: View {
             scoreTitle = "Wrong"
             flagChoice = number
         }
-        
         showingScore = true
     }
     
     func askQuestion() {
         countries.shuffle()
         correctAnswer = (Int.random(in: 0...2))
+        opacities = [1.0, 1.0, 1.0]
+        scale = [1.0, 1.0, 1.0]
+    }
+    
+    func changeOpacityAndScale() {
+        for num in 0...2 {
+            if num != correctAnswer {
+                opacities[num] = 0.25
+                scale[num] *= 0.5
+            }
+        }
     }
 }
 
