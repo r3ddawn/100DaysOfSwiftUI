@@ -60,10 +60,11 @@ struct ContentView: View {
                     
                     Section {
                         if showingSettings {
-                            Text("Setup")
+                            Text("Settings")
                                 .font(.headline)
-                            Stepper("Tables up to:    \(tableMaximum)", value: $tableMaximum, in: 2...12)
+                            Stepper("Times tables up to:           \(tableMaximum)", value: $tableMaximum, in: 2...12)
                                 .font(.headline)
+                            Text("Number of questions:")
                             Picker("Number of Questions", selection: $numOfQuestionPicked) {
                                 ForEach(numOfQuestionOptions, id: \.self) {
                                     Text("\($0)")
@@ -72,6 +73,7 @@ struct ContentView: View {
                             .pickerStyle(.segmented)
                             Button {
                                 showingSettings.toggle()
+                                startGame()
                             } label: {
                                 Text("Save")
                             }
@@ -80,43 +82,47 @@ struct ContentView: View {
                             .frame(width: 100, height: 25)
                             .background(LinearGradient(gradient: Gradient(colors: [.teal, .blue, .teal]), startPoint: .top, endPoint: .bottom))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                            
+                            Spacer()
                         }
                     } // Game Settings
                     
                     Section {
-                        HStack {
-                            
-                            Spacer()
-                            
-                            Text(currentQuestion)
-                                .font(.title)
-                            TextField("Answer", text: $userAnswer)
-                                .fixedSize()
-                                .textFieldStyle(.roundedBorder)
-                                .border(Color.blue)
-                                .keyboardType(.numberPad)
-                            Button {
-                                submitAnswer()
-                                if showingSettings { showingSettings.toggle() }
-                            } label: {
-                                Text("Submit")
+                        if !showingSettings {
+                            HStack {
+                                
+                                Spacer()
+                                
+                                Text(currentQuestion)
+                                    .font(.title)
+                                TextField("       ", text: $userAnswer)
+                                    .fixedSize()
+                                    .textFieldStyle(.roundedBorder)
+                                    .border(Color.blue)
+                                    .keyboardType(.numberPad)
+                                Button {
+                                    submitAnswer()
+                                    if showingSettings { showingSettings.toggle() }
+                                } label: {
+                                    Text("Submit")
+                                }
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(width: 75, height: 25)
+                                .background(LinearGradient(gradient: Gradient(colors: [.teal, .blue, .teal]), startPoint: .top, endPoint: .bottom))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                
+                                Spacer()
                             }
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(width: 75, height: 25)
-                            .background(LinearGradient(gradient: Gradient(colors: [.teal, .blue, .teal]), startPoint: .top, endPoint: .bottom))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .padding(50)
+                            
+                            ForEach(answeredQuestions, id: \.self) { answer in
+                                Text(answer)
+                                    .font(.title)
+                            }
                             
                             Spacer()
                         }
-                        .padding(50)
-                        
-                        ForEach(answeredQuestions, id: \.self) { answer in
-                            Text(answer)
-                                .font(.title)
-                        }
-                        
-                        Spacer()
                     }
                 }
                 .navigationBarTitleDisplayMode(.automatic)
@@ -124,12 +130,12 @@ struct ContentView: View {
                     Button {
                         showingSettings.toggle()
                     } label: {
-                        Text(showingSettings ? "Hide Setup" : "Show Setup")
+                        Image(systemName: "gearshape")
                     }
                 }
             }
             
-            .onAppear(perform: startGame)
+//            .onAppear(perform: startGame)
             .onSubmit(submitAnswer)
             .alert(alertTitle, isPresented: $showingAlert) {
                 Button("OK", role: .cancel) { }
