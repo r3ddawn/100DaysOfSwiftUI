@@ -77,6 +77,7 @@ struct MissionView: View {
                             }
                         }
                     }
+                    
                 }
             }
         }
