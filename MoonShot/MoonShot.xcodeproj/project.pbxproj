@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C50431BA29B54CA400161CBE /* CrewMemberScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50431B929B54CA400161CBE /* CrewMemberScrollView.swift */; };
 		C5F41D6529B407F60070A74D /* MoonShotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F41D6429B407F60070A74D /* MoonShotApp.swift */; };
 		C5F41D6729B407F60070A74D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F41D6629B407F60070A74D /* ContentView.swift */; };
 		C5F41D6929B407F60070A74D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5F41D6829B407F60070A74D /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C50431B929B54CA400161CBE /* CrewMemberScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMemberScrollView.swift; sourceTree = "<group>"; };
 		C5F41D6129B407F60070A74D /* MoonShot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoonShot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5F41D6429B407F60070A74D /* MoonShotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonShotApp.swift; sourceTree = "<group>"; };
 		C5F41D6629B407F60070A74D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				C5F41D8229B502080070A74D /* PaulsDivider.swift */,
 				C5F41D6629B407F60070A74D /* ContentView.swift */,
 				C5F41D7E29B46FA00070A74D /* MissionView.swift */,
+				C50431B929B54CA400161CBE /* CrewMemberScrollView.swift */,
 				C5F41D8029B4FE2D0070A74D /* AstronautView.swift */,
 				C5F41D7C29B46D920070A74D /* Color-Theme.swift */,
 				C5F41D7A29B464FA0070A74D /* Mission.swift */,
@@ -170,6 +173,7 @@
 				C5F41D7D29B46D920070A74D /* Color-Theme.swift in Sources */,
 				C5F41D8129B4FE2D0070A74D /* AstronautView.swift in Sources */,
 				C5F41D6729B407F60070A74D /* ContentView.swift in Sources */,
+				C50431BA29B54CA400161CBE /* CrewMemberScrollView.swift in Sources */,
 				C5F41D8329B502080070A74D /* PaulsDivider.swift in Sources */,
 				C5F41D6529B407F60070A74D /* MoonShotApp.swift in Sources */,
 				C5F41D7B29B464FA0070A74D /* Mission.swift in Sources */,
