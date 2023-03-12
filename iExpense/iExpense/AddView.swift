@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddView: View {
     @ObservedObject var expenses: Expenses
+    
     @Environment(\.dismiss) var dismiss
     
     @State private var name = ""
