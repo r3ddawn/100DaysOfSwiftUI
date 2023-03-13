@@ -33,7 +33,7 @@ struct ContentView: View {
                                     Text(item.habitName)
                                         .font(.title)
                                     if item.hasGoal {
-                                        Text("Streak: \(item.goalDays)")
+                                        Text("Days Complete: \(item.daysComplete)")
                                     }
                                 }
                                 
@@ -41,7 +41,7 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 Button {
-                                    
+                                    //
                                 } label: {
                                     Image(systemName: "plus")
                                 }
@@ -71,7 +71,7 @@ struct ContentView: View {
                     
 //                  Test Habits
                     Button {
-                        let newHabit = HabitItem(symbol: "figure.run", habitName: "Running", habitDesc: "", hasGoal: true, goalDays: 0)
+                        let newHabit = HabitItem(symbol: "figure.run", habitName: "Running", habitDesc: "", hasGoal: true, goalDays: 100)
                         habit.habits.append(newHabit)
                     } label: {
                         Image(systemName: "figure.run")

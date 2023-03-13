@@ -16,9 +16,12 @@ struct HabitItem: Identifiable {
     
     var hasGoal: Bool
     var goalDays: Int
+    var daysComplete: Int = 0
+    var currentStreak: Int = 0
     
 //    var hasAmountGoal: Bool
 //    var goalAmount: Double
     
-    var datesCompleted: [Date]?
+    var datesCompleted = [Date]()
+    
 }
