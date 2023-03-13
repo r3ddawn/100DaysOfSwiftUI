@@ -10,5 +10,4 @@ import Foundation
 class Habits: ObservableObject {
     @Published var habits = [HabitItem]()
     
-    
 }
