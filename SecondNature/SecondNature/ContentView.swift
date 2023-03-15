@@ -11,6 +11,8 @@ struct ContentView: View {
     @StateObject var habit = Habits()
     
     @State private var showingAddHabit = false
+    @State private var habitCompletionTracker = [UUID: Int]()
+    @State private var datesCompleted = [UUID: [[Int]]]()
     
     var body: some View {
         NavigationView {
@@ -25,7 +27,10 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 Image(systemName: "\(item.symbol)")
-                                    .imageScale(.large)
+                                    //.imageScale(.large)
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .scaledToFit()
                                 
                                 Spacer()
                                 
@@ -33,7 +38,8 @@ struct ContentView: View {
                                     Text(item.habitName)
                                         .font(.title)
                                     if item.hasGoal {
-                                        Text("Days Complete: \(item.daysComplete)")
+                                        Text("Days Completed: \(getDays(info: item))")
+                                        Text("Last Completed: " + printDateLastCompleted(info: item))
                                     }
                                 }
                                 
@@ -41,11 +47,12 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 Button {
-                                    //
+                                    countDay(info: item)
                                 } label: {
-                                    Image(systemName: "plus")
+                                    Image(systemName: "checkmark.circle")
+                                        .imageScale(.large)
                                 }
-                                .frame(width: 45, height: 45)
+                                .frame(width: 40, height: 40)
                                 .background(.green)
                                 .clipShape(RoundedRectangle(cornerRadius: 15))
                                 .foregroundColor(.white)
@@ -54,7 +61,7 @@ struct ContentView: View {
                                 
                             }
                             .frame(maxWidth: .infinity)
-                            .frame(height: 75)
+                            .frame(height: 100)
                             .background(.ultraThinMaterial)
                             .clipShape(RoundedRectangle(cornerRadius: 15))
                         }
@@ -73,6 +80,8 @@ struct ContentView: View {
                     Button {
                         let newHabit = HabitItem(symbol: "figure.run", habitName: "Running", habitDesc: "", hasGoal: true, goalDays: 100)
                         habit.habits.append(newHabit)
+                        habitCompletionTracker[newHabit.id] = 0
+                        datesCompleted[newHabit.id] = [getDate()]
                     } label: {
                         Image(systemName: "figure.run")
                     }
@@ -82,6 +91,51 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    func countDay(info: HabitItem) {
+        var currentCount = habitCompletionTracker[info.id] ?? 0
+        currentCount += 1
+        
+        habitCompletionTracker[info.id] = currentCount
+    }
+    
+    func getDays(info: HabitItem) -> Int {
+        habitCompletionTracker[info.id] ?? 0
+    }
+    
+    func getDate() -> [Int] {
+        let date = Date.now
+        let monthDayYear = Calendar.current.dateComponents([.month, .day, .year], from: date)
+        let month = monthDayYear.month ?? 0
+        let day = monthDayYear.day ?? 0
+        let year = monthDayYear.year ?? 0
+        
+        return [month, day, year]
+    }
+    
+    func addDateToDict(info: HabitItem) {
+        let date = [getDate()]
+        let id = info.id
+        var dateArray = datesCompleted[id] ?? [[0]]
+        dateArray += date
+        
+        datesCompleted[id] = dateArray
+    }
+    
+    func dateLastCompleted(info: HabitItem) -> [Int] {
+        let id = info.id
+        let dateArray = datesCompleted[id] ?? [[0]]
+        
+        return dateArray.last ?? [0]
+    }
+    
+    func printDateLastCompleted(info: HabitItem) -> String {
+        let date  = dateLastCompleted(info: info)
+        let month = date[0]
+        let day = date[1]
+        let year = date[2]
+        
+        return "\(month) / \(day) / \(year)"
     }
 }
 
