@@ -11,14 +11,12 @@ struct AddHabit: View {
     var habit: Habits
     
     @State private var habitName = ""
-    @State private var symbol = ""
+    @State private var symbol = "figure.walk"
     @State private var habitDesc = ""
     @State private var hasGoal = false
     @State private var goalDays = 0
-//    @State private var hasAmountGoal = false
-//    @State private var goalAmount = "0"
     
-    var symbolList = ["questionmark.circle", "heart", "figure.walk.circle", "figure.run"]
+    var symbolList = ["questionmark.circle", "heart", "figure.walk", "figure.run"]
     
     @Environment(\.dismiss) var dismiss
     

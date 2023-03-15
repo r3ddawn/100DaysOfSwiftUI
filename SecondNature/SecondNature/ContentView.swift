@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    init() {
+        //Use this if NavigationBarTitle is with Large Font
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+    }
+    
     @StateObject var habit = Habits()
     
     @State private var showingAddHabit = false
@@ -17,6 +23,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Color.gray.ignoresSafeArea()
                 ScrollView {
                     ForEach(habit.habits) { item in
                         NavigationLink {
@@ -27,35 +34,44 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 Image(systemName: "\(item.symbol)")
-                                    //.imageScale(.large)
                                     .resizable()
                                     .frame(width: 30, height: 30)
                                     .scaledToFit()
+                                    .foregroundColor(.white)
                                 
                                 Spacer()
                                 
                                 VStack {
                                     Text(item.habitName)
                                         .font(.title)
+                                        .foregroundColor(.white)
                                     if item.hasGoal {
                                         Text("Days Completed: \(getDays(info: item))")
-                                        Text("Last Completed: " + printDateLastCompleted(info: item))
+                                            .foregroundColor(.white)
+                                        Text(isZeroPrint(info: item) ? "" : "Last Completed: \(printDateLastCompleted(info: item))")
+                                            .foregroundColor(.white)
                                     }
                                 }
                                 
                                 Spacer()
                                 Spacer()
                                 
-                                Button {
-                                    countDay(info: item)
-                                } label: {
-                                    Image(systemName: "checkmark.circle")
-                                        .imageScale(.large)
+                                Group {
+                                    if !completedToday(info: item) {
+                                        Button {
+                                            countDay(info: item)
+                                            addDateToDict(info: item)
+                                        } label: {
+                                            Image(systemName: "checkmark.circle")
+                                                .imageScale(.large)
+                                        }
+                                        .frame(width: 40, height: 40)
+                                        .background(.green)
+                                        .opacity(0.80)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        .foregroundColor(.white)
+                                    }
                                 }
-                                .frame(width: 40, height: 40)
-                                .background(.green)
-                                .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .foregroundColor(.white)
                                 
                                 Spacer()
                                 
@@ -72,8 +88,13 @@ struct ContentView: View {
                 .toolbar {
                     Button {
                         showingAddHabit = true
+                        
                     } label: {
                         Image(systemName: "plus")
+                            .foregroundColor(.white)
+                            .frame(width: 35, height: 35)
+                            .background(.ultraThinMaterial)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     
 //                  Test Habits
@@ -81,9 +102,10 @@ struct ContentView: View {
                         let newHabit = HabitItem(symbol: "figure.run", habitName: "Running", habitDesc: "", hasGoal: true, goalDays: 100)
                         habit.habits.append(newHabit)
                         habitCompletionTracker[newHabit.id] = 0
-                        datesCompleted[newHabit.id] = [getDate()]
+                        //datesCompleted[newHabit.id] = [getDate()]
                     } label: {
                         Image(systemName: "figure.run")
+                            .foregroundColor(.white)
                     }
                 }
                 .sheet(isPresented: $showingAddHabit) {
@@ -116,7 +138,7 @@ struct ContentView: View {
     func addDateToDict(info: HabitItem) {
         let date = [getDate()]
         let id = info.id
-        var dateArray = datesCompleted[id] ?? [[0]]
+        var dateArray = datesCompleted[id] ?? [[0, 0, 0]]
         dateArray += date
         
         datesCompleted[id] = dateArray
@@ -124,7 +146,7 @@ struct ContentView: View {
     
     func dateLastCompleted(info: HabitItem) -> [Int] {
         let id = info.id
-        let dateArray = datesCompleted[id] ?? [[0]]
+        let dateArray = datesCompleted[id] ?? [[0, 0, 0]]
         
         return dateArray.last ?? [0]
     }
@@ -136,6 +158,15 @@ struct ContentView: View {
         let year = date[2]
         
         return "\(month) / \(day) / \(year)"
+    }
+    
+    func isZeroPrint(info: HabitItem) -> Bool {
+        let printOut = printDateLastCompleted(info: info)
+        return printOut == "0 / 0 / 0"
+    }
+    
+    func completedToday(info: HabitItem) -> Bool {
+        getDate() == dateLastCompleted(info: info)
     }
 }
 
