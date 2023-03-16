@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddHabit: View {
+    
     var habit: Habits
     
     @State private var habitName = ""
@@ -42,8 +43,9 @@ struct AddHabit: View {
                         
                     }
                 }
-                
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.mint)
             .navigationTitle("Add a new habit")
             .toolbar {
                 
@@ -53,11 +55,13 @@ struct AddHabit: View {
                     dismiss()
                 } label: {
                     Text("Save")
+                    
                 }
                 .disabled(habitName.isEmpty)
             }
         }
         .padding([.bottom, .horizontal])
+        .background(Color.mint)
     }
 }
 

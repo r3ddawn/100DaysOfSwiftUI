@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HabitItem: Identifiable {
+struct HabitItem: Codable, Identifiable, Equatable {
     var id = UUID()
     
     var symbol: String
@@ -23,5 +23,4 @@ struct HabitItem: Identifiable {
 //    var goalAmount: Double
     
     var datesCompleted = [Date]()
-    
 }

@@ -14,6 +14,7 @@ struct ContentView: View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
+    
     @StateObject var habit = Habits()
     
     @State private var showingAddHabit = false
@@ -23,7 +24,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray.ignoresSafeArea()
+                Color.mint.ignoresSafeArea()
                 ScrollView {
                     ForEach(habit.habits) { item in
                         NavigationLink {
@@ -114,6 +115,7 @@ struct ContentView: View {
             }
         }
     }
+    
     func countDay(info: HabitItem) {
         var currentCount = habitCompletionTracker[info.id] ?? 0
         currentCount += 1
