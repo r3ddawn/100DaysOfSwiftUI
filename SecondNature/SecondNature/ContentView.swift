@@ -28,7 +28,15 @@ struct ContentView: View {
                 ScrollView {
                     ForEach(habit.habits) { item in
                         NavigationLink {
-                            //Habit Detail to come
+                            Button {
+                                removeHabit(id: item.id)
+                            } label: {
+                                Text("Delete")
+                            }
+                            .frame(width: 100, height: 50)
+                            .background(.red)
+                            .foregroundColor(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                         } label: {
                             HStack {
                                 
@@ -112,6 +120,15 @@ struct ContentView: View {
                 .sheet(isPresented: $showingAddHabit) {
                     AddHabit(habit: habit)
                 }
+            }
+        }
+    }
+    
+    func removeHabit(id: UUID) {
+        for index in 0..<habit.habits.count {
+            if habit.habits[index].id == id {
+                habit.habits.remove(at: index)
+                return
             }
         }
     }
