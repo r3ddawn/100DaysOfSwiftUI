@@ -19,8 +19,5 @@ struct HabitItem: Codable, Identifiable, Equatable {
     var daysComplete: Int = 0
     var currentStreak: Int = 0
     
-//    var hasAmountGoal: Bool
-//    var goalAmount: Double
-    
-    var datesCompleted = [Date]()
+    var datesCompleted = [[Int]]()
 }

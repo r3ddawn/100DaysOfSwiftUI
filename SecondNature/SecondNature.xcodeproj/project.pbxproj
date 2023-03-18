@@ -14,6 +14,7 @@
 		C5C1B41929BD850900BC9841 /* HabitItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1B41829BD850900BC9841 /* HabitItem.swift */; };
 		C5C1B41B29BD868900BC9841 /* Habits.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1B41A29BD868900BC9841 /* Habits.swift */; };
 		C5C1B41D29BD897F00BC9841 /* AddHabit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C1B41C29BD897F00BC9841 /* AddHabit.swift */; };
+		C5FA468629C5475B00969BF3 /* HabitDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA468529C5475B00969BF3 /* HabitDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		C5C1B41829BD850900BC9841 /* HabitItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitItem.swift; sourceTree = "<group>"; };
 		C5C1B41A29BD868900BC9841 /* Habits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habits.swift; sourceTree = "<group>"; };
 		C5C1B41C29BD897F00BC9841 /* AddHabit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabit.swift; sourceTree = "<group>"; };
+		C5FA468529C5475B00969BF3 /* HabitDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +43,7 @@
 		C5C1B3FE29BD815000BC9841 = {
 			isa = PBXGroup;
 			children = (
+				C5FA468529C5475B00969BF3 /* HabitDetail.swift */,
 				C5C1B40929BD815000BC9841 /* SecondNature */,
 				C5C1B40829BD815000BC9841 /* Products */,
 			);
@@ -151,6 +154,7 @@
 				C5C1B41B29BD868900BC9841 /* Habits.swift in Sources */,
 				C5C1B40D29BD815000BC9841 /* ContentView.swift in Sources */,
 				C5C1B40B29BD815000BC9841 /* SecondNatureApp.swift in Sources */,
+				C5FA468629C5475B00969BF3 /* HabitDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
