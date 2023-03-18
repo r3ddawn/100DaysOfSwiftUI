@@ -17,22 +17,22 @@ struct AddHabit: View {
     @State private var hasGoal = false
     @State private var goalDays = 0
     
-    var symbolList = ["questionmark.circle", "heart", "figure.walk", "figure.run"]
+    var symbolList = ["questionmark.circle", "heart", "figure.walk", "figure.run", "pencil", "scribble", "pencil.and.outline", "trash", "book", "graduationcap", "figure.2.arms.open", "figure.2.and.child.holdinghands", "figure.and.child.holdinghands", "figure.roll", "figure.core.training", "figure.mind.and.body"]
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView {
             Form {
-                TextField("New Habit", text: $habitName)
-                Picker("Habits Symbol", selection: $symbol) {
+                TextField("New Habit's Name", text: $habitName)
+                TextField("Habit's description...", text: $habitDesc, axis: .vertical)
+                    .lineLimit(15, reservesSpace: true)
+                Picker("Habit's Symbol", selection: $symbol) {
                     ForEach(symbolList, id: \.self) {
                         Image(systemName: $0)
                     }
                 }
-                TextField("Habit description...", text: $habitDesc, axis: .vertical)
-                    .lineLimit(3, reservesSpace: true)
-                Toggle("Daily Streak Goal?", isOn: $hasGoal)
+//                Toggle("Day Count Goal?", isOn: $hasGoal)
                 Group {
                     if hasGoal {
                         Picker("Number of days", selection: $goalDays) {
@@ -44,6 +44,7 @@ struct AddHabit: View {
                     }
                 }
             }
+            .opacity(0.8)
             .scrollContentBackground(.hidden)
             .background(Color.mint)
             .navigationTitle("Add a new habit")
@@ -55,6 +56,10 @@ struct AddHabit: View {
                     dismiss()
                 } label: {
                     Text("Save")
+                        .foregroundColor(.white)
+                        .frame(width: 100, height: 35)
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                     
                 }
                 .disabled(habitName.isEmpty)

@@ -11,6 +11,8 @@ struct HabitDetail: View {
     var habit: Habits
     var habitItem: HabitItem
     
+    @State private var showingEditHabit = false
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -21,8 +23,10 @@ struct HabitDetail: View {
                             .imageScale(.large)
                         Text(habitItem.habitName)
                             .font(.title)
+                            .fontWeight(.bold)
                     }
-                    Text("Number of days completed: \(habitItem.daysComplete)")
+                    Text("Completion Count: \(habitItem.daysComplete)")
+                        .padding(.bottom)
                     
                     Rectangle()
                         .frame(height: 1)
@@ -36,6 +40,7 @@ struct HabitDetail: View {
                     
                     Text("Dates Completed:")
                         .fontWeight(.bold)
+                        .padding(.top)
                     
                     ScrollView {
                         ForEach(habitItem.datesCompleted.reversed(), id: \.self) { date in
@@ -47,24 +52,12 @@ struct HabitDetail: View {
             }
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
-                    Button {
-                        removeHabit(id: habitItem.id)
-                    } label: {
-                        Text("Delete")
-                            .frame(width: 100, height: 35)
-                            .background(.red)
-                            .foregroundColor(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
-                }
-                
-                ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
                 
                 ToolbarItem(placement: .bottomBar) {
                     Button {
-                        
+                        showingEditHabit = true
                     } label: {
                         Image(systemName: "pencil")
                             .foregroundColor(.white)
@@ -74,13 +67,8 @@ struct HabitDetail: View {
                     }
                 }
             }
-        }
-    }
-    func removeHabit(id: UUID) {
-        for index in 0..<habit.habits.count {
-            if habit.habits[index].id == id {
-                habit.habits.remove(at: index)
-                return
+            .sheet(isPresented: $showingEditHabit) {
+                Edit(habit: habit, habitItem: habitItem)
             }
         }
     }
